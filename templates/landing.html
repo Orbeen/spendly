@@ -65,29 +65,15 @@
     <div class="modal-card">
         <a href="#" class="modal-close" aria-label="Close">&times;</a>
         <h2 class="modal-title">How Spendly works</h2>
-        <ol class="modal-steps">
-            <li>
-                <span class="modal-step-num">1</span>
-                <div>
-                    <h3>Create your free account</h3>
-                    <p>Sign up in seconds — no credit card required.</p>
-                </div>
-            </li>
-            <li>
-                <span class="modal-step-num">2</span>
-                <div>
-                    <h3>Log your expenses</h3>
-                    <p>Add each expense with an amount, category, and date as it happens.</p>
-                </div>
-            </li>
-            <li>
-                <span class="modal-step-num">3</span>
-                <div>
-                    <h3>See where your money goes</h3>
-                    <p>Spendly breaks your spending down by category and time period, automatically.</p>
-                </div>
-            </li>
-        </ol>
+        <div class="modal-video">
+            <iframe
+                src="https://www.youtube-nocookie.com/embed/M7lc1UVf-VE"
+                title="How Spendly works"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
         <a href="{{ url_for('register') }}" class="btn-primary modal-cta">Start tracking free</a>
     </div>
 </div>
