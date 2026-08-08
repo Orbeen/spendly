@@ -18,7 +18,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="btn-primary">Start tracking free</a>
-            <a href="{{ url_for('login') }}" class="btn-ghost">Sign in</a>
+            <a href="#how-it-works" class="btn-ghost">How it works</a>
         </div>
     </div>
     <div class="hero-visual">
@@ -60,6 +60,37 @@
         </div>
     </div>
 </section>
+
+<div id="how-it-works" class="modal-overlay">
+    <div class="modal-card">
+        <a href="#" class="modal-close" aria-label="Close">&times;</a>
+        <h2 class="modal-title">How Spendly works</h2>
+        <ol class="modal-steps">
+            <li>
+                <span class="modal-step-num">1</span>
+                <div>
+                    <h3>Create your free account</h3>
+                    <p>Sign up in seconds — no credit card required.</p>
+                </div>
+            </li>
+            <li>
+                <span class="modal-step-num">2</span>
+                <div>
+                    <h3>Log your expenses</h3>
+                    <p>Add each expense with an amount, category, and date as it happens.</p>
+                </div>
+            </li>
+            <li>
+                <span class="modal-step-num">3</span>
+                <div>
+                    <h3>See where your money goes</h3>
+                    <p>Spendly breaks your spending down by category and time period, automatically.</p>
+                </div>
+            </li>
+        </ol>
+        <a href="{{ url_for('register') }}" class="btn-primary modal-cta">Start tracking free</a>
+    </div>
+</div>
 
 <section class="features">
     <div class="features-inner">
