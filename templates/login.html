@@ -32,6 +32,11 @@
                 </div>
                 <button type="submit" class="btn-submit">Sign in</button>
             </form>
+            <p class="auth-legal">
+                By signing in, you agree to our
+                <a href="{{ url_for('terms') }}">Terms &amp; Conditions</a> and
+                <a href="{{ url_for('privacy') }}">Privacy Policy</a>.
+            </p>
         </div>
 
         <p class="auth-switch">

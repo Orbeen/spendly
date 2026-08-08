@@ -477,6 +477,20 @@ a { color: inherit; text-decoration: none; }
 
 .auth-switch a:hover { text-decoration: underline; }
 
+.auth-legal {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    margin-top: 1rem;
+}
+
+.auth-legal a {
+    color: var(--ink-muted);
+    text-decoration: underline;
+}
+
+.auth-legal a:hover { color: var(--accent); }
+
 /* ------------------------------------------------------------------ */
 /* Legal pages (Terms, Privacy)                                        */
 /* ------------------------------------------------------------------ */
