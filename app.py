@@ -112,7 +112,56 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    conn = get_db()
+    try:
+        user = conn.execute(
+            "SELECT id, name, email, created_at FROM users WHERE id = ?",
+            (user_id,),
+        ).fetchone()
+
+        total_spend = conn.execute(
+            "SELECT COALESCE(SUM(amount), 0) AS total FROM expenses WHERE user_id = ?",
+            (user_id,),
+        ).fetchone()["total"]
+
+        category_breakdown = conn.execute(
+            """
+            SELECT category, COALESCE(SUM(amount), 0) AS total
+            FROM expenses
+            WHERE user_id = ?
+            GROUP BY category
+            ORDER BY total DESC
+            """,
+            (user_id,),
+        ).fetchall()
+
+        recent_expenses = conn.execute(
+            """
+            SELECT id, amount, category, date, description
+            FROM expenses
+            WHERE user_id = ?
+            ORDER BY date DESC, id DESC
+            LIMIT 10
+            """,
+            (user_id,),
+        ).fetchall()
+    finally:
+        conn.close()
+
+    max_category_total = category_breakdown[0]["total"] if category_breakdown else 0
+
+    return render_template(
+        "profile.html",
+        user=user,
+        total_spend=total_spend,
+        category_breakdown=category_breakdown,
+        max_category_total=max_category_total,
+        recent_expenses=recent_expenses,
+    )
 
 
 @app.route("/expenses/add")

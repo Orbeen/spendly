@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Your profile — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+    <div class="profile-inner">
+
+        <div class="profile-header">
+            <div class="profile-badge">Your account</div>
+            <h1 class="profile-title">{{ user['name'] }}</h1>
+            <p class="profile-email">{{ user['email'] }}</p>
+            <p class="profile-since">Member since {{ user['created_at'][:10] }}</p>
+        </div>
+
+        <div class="mock-card profile-summary-card">
+            <div class="mock-card-header">
+                <span class="mock-label">Total spend</span>
+                <span class="mock-total">₹{{ "%.2f"|format(total_spend) }}</span>
+            </div>
+
+            {% if category_breakdown %}
+            <div class="mock-bars">
+                {% for row in category_breakdown %}
+                <div class="mock-bar-row">
+                    <span class="mock-cat">{{ row['category'] }}</span>
+                    <div class="mock-bar-track">
+                        <div class="mock-bar cat-color-{{ loop.index0 }}"
+                             style="width: {{ (row['total'] / max_category_total * 100) | round | int }}%"></div>
+                    </div>
+                    <span class="mock-amt">₹{{ "%.2f"|format(row['total']) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="profile-empty">No expenses logged yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="profile-recent">
+            <h2 class="profile-section-title">Recent expenses</h2>
+
+            {% if recent_expenses %}
+            <div class="expense-list">
+                {% for expense in recent_expenses %}
+                <div class="expense-row">
+                    <span class="expense-row-date">{{ expense['date'] }}</span>
+                    <span class="expense-row-category">{{ expense['category'] }}</span>
+                    <span class="expense-row-desc">{{ expense['description'] or '—' }}</span>
+                    <span class="expense-row-amount">₹{{ "%.2f"|format(expense['amount']) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="profile-empty">No expenses logged yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
