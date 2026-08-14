@@ -11,6 +11,21 @@ with app.app_context():
     seed_db()
 
 
+@app.context_processor
+def inject_current_user():
+    user_id = session.get("user_id")
+    if not user_id:
+        return {"current_user": None}
+
+    conn = get_db()
+    try:
+        user = conn.execute("SELECT id, name, email FROM users WHERE id = ?", (user_id,)).fetchone()
+    finally:
+        conn.close()
+
+    return {"current_user": user}
+
+
 # ------------------------------------------------------------------ #
 # Routes                                                              #
 # ------------------------------------------------------------------ #
