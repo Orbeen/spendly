@@ -107,12 +107,12 @@ def add_expense():
 
 @app.route("/expenses/<int:id>/edit")
 def edit_expense(id):
-    return "Edit expense — coming in Step 8"
+    return f"Edit expense {id} — coming in Step 8"
 
 
 @app.route("/expenses/<int:id>/delete")
 def delete_expense(id):
-    return "Delete expense — coming in Step 9"
+    return f"Delete expense {id} — coming in Step 9"
 
 
 if __name__ == "__main__":
