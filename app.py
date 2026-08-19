@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask import Flask, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -24,6 +26,11 @@ def inject_current_user():
         conn.close()
 
     return {"current_user": user}
+
+
+@app.context_processor
+def inject_current_year():
+    return {"current_year": date.today().year}
 
 
 # ------------------------------------------------------------------ #
@@ -128,6 +135,20 @@ def profile():
             (user_id,),
         ).fetchone()["total"]
 
+        this_month_spend = conn.execute(
+            """
+            SELECT COALESCE(SUM(amount), 0) AS total
+            FROM expenses
+            WHERE user_id = ? AND strftime('%Y-%m', date) = strftime('%Y-%m', 'now')
+            """,
+            (user_id,),
+        ).fetchone()["total"]
+
+        transaction_count = conn.execute(
+            "SELECT COUNT(*) AS count FROM expenses WHERE user_id = ?",
+            (user_id,),
+        ).fetchone()["count"]
+
         category_breakdown = conn.execute(
             """
             SELECT category, COALESCE(SUM(amount), 0) AS total
@@ -158,6 +179,8 @@ def profile():
         "profile.html",
         user=user,
         total_spend=total_spend,
+        this_month_spend=this_month_spend,
+        transaction_count=transaction_count,
         category_breakdown=category_breakdown,
         max_category_total=max_category_total,
         recent_expenses=recent_expenses,

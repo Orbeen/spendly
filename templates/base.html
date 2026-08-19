@@ -36,12 +36,36 @@
 
     <footer class="footer">
         <div class="footer-inner">
-            <span class="brand-icon">◈</span>
-            <span class="footer-name">Spendly</span>
-            <p class="footer-copy">Track every rupee. Own your finances.</p>
-            <div class="footer-links">
-                <a href="{{ url_for('terms') }}">Terms &amp; Conditions</a>
-                <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="{{ url_for('landing') }}" class="footer-brand-link">
+                        <span class="brand-icon">◈</span>
+                        <span class="footer-name">Spendly</span>
+                    </a>
+                    <p class="footer-copy">Track every rupee. Own your finances.</p>
+                </div>
+
+                <div class="footer-col">
+                    <span class="footer-col-title">Product</span>
+                    <a href="{{ url_for('landing') }}">Home</a>
+                    {% if current_user %}
+                        <a href="{{ url_for('profile') }}">My account</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">Sign in</a>
+                        <a href="{{ url_for('register') }}">Get started</a>
+                    {% endif %}
+                </div>
+
+                <div class="footer-col">
+                    <span class="footer-col-title">Legal</span>
+                    <a href="{{ url_for('terms') }}">Terms &amp; Conditions</a>
+                    <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; {{ current_year }} Spendly. All rights reserved.</span>
             </div>
         </div>
     </footer>

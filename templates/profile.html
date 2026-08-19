@@ -5,56 +5,84 @@
 {% block content %}
 
 <section class="profile-page">
-    <div class="profile-inner">
+    <div class="profile-dash-inner">
 
-        <div class="profile-header">
-            <div class="profile-badge">Your account</div>
-            <h1 class="profile-title">{{ user['name'] }}</h1>
-            <p class="profile-email">{{ user['email'] }}</p>
-            <p class="profile-since">Member since {{ user['created_at'][:10] }}</p>
+        <div class="profile-dash-top">
+            <div>
+                <div class="profile-badge">Your account</div>
+                <h1 class="profile-dash-title">{{ user['name'] }}</h1>
+                <p class="profile-dash-meta">{{ user['email'] }} &middot; Member since {{ user['created_at'][:10] }}</p>
+            </div>
         </div>
 
-        <div class="mock-card profile-summary-card">
-            <div class="mock-card-header">
-                <span class="mock-label">Total spend</span>
-                <span class="mock-total">₹{{ "%.2f"|format(total_spend) }}</span>
+        <div class="stat-tiles">
+            <div class="stat-tile">
+                <span class="stat-tile-label">Total spend</span>
+                <span class="stat-tile-value">₹{{ "%.2f"|format(total_spend) }}</span>
+                <span class="stat-tile-sub">All time</span>
             </div>
+            <div class="stat-tile">
+                <span class="stat-tile-label">This month</span>
+                <span class="stat-tile-value stat-tile-value-accent">₹{{ "%.2f"|format(this_month_spend) }}</span>
+                <span class="stat-tile-sub">Current calendar month</span>
+            </div>
+            <div class="stat-tile">
+                <span class="stat-tile-label">Top category</span>
+                {% if category_breakdown %}
+                <span class="stat-tile-value stat-tile-value-text">{{ category_breakdown[0]['category'] }}</span>
+                <span class="stat-tile-sub">₹{{ "%.2f"|format(category_breakdown[0]['total']) }} spent</span>
+                {% else %}
+                <span class="stat-tile-value stat-tile-value-text">—</span>
+                <span class="stat-tile-sub">No expenses yet</span>
+                {% endif %}
+            </div>
+            <div class="stat-tile">
+                <span class="stat-tile-label">Transactions</span>
+                <span class="stat-tile-value">{{ transaction_count }}</span>
+                <span class="stat-tile-sub">Logged total</span>
+            </div>
+        </div>
 
-            {% if category_breakdown %}
-            <div class="mock-bars">
-                {% for row in category_breakdown %}
-                <div class="mock-bar-row">
-                    <span class="mock-cat">{{ row['category'] }}</span>
-                    <div class="mock-bar-track">
-                        <div class="mock-bar cat-color-{{ loop.index0 }}"
-                             style="width: {{ (row['total'] / max_category_total * 100) | round | int }}%"></div>
+        <div class="profile-dash-grid">
+            <div class="profile-dash-card">
+                <div class="profile-dash-card-title">Spend by category</div>
+
+                {% if category_breakdown %}
+                <div class="mock-bars">
+                    {% for row in category_breakdown %}
+                    <div class="mock-bar-row">
+                        <span class="mock-cat">{{ row['category'] }}</span>
+                        <div class="mock-bar-track">
+                            <div class="mock-bar cat-color-{{ loop.index0 }}"
+                                 style="width: {{ (row['total'] / max_category_total * 100) | round | int }}%"></div>
+                        </div>
+                        <span class="mock-amt">₹{{ "%.2f"|format(row['total']) }}</span>
                     </div>
-                    <span class="mock-amt">₹{{ "%.2f"|format(row['total']) }}</span>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                {% else %}
+                <p class="profile-empty">No expenses logged yet.</p>
+                {% endif %}
             </div>
-            {% else %}
-            <p class="profile-empty">No expenses logged yet.</p>
-            {% endif %}
-        </div>
 
-        <div class="profile-recent">
-            <h2 class="profile-section-title">Recent expenses</h2>
+            <div class="profile-dash-card">
+                <div class="profile-dash-card-title">Recent expenses</div>
 
-            {% if recent_expenses %}
-            <div class="expense-list">
-                {% for expense in recent_expenses %}
-                <div class="expense-row">
-                    <span class="expense-row-date">{{ expense['date'] }}</span>
-                    <span class="expense-row-category">{{ expense['category'] }}</span>
-                    <span class="expense-row-desc">{{ expense['description'] or '—' }}</span>
-                    <span class="expense-row-amount">₹{{ "%.2f"|format(expense['amount']) }}</span>
+                {% if recent_expenses %}
+                <div class="expense-list">
+                    {% for expense in recent_expenses %}
+                    <div class="expense-row">
+                        <span class="expense-row-date">{{ expense['date'] }}</span>
+                        <span class="expense-row-category">{{ expense['category'] }}</span>
+                        <span class="expense-row-desc">{{ expense['description'] or '—' }}</span>
+                        <span class="expense-row-amount">₹{{ "%.2f"|format(expense['amount']) }}</span>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                {% else %}
+                <p class="profile-empty">No expenses logged yet.</p>
+                {% endif %}
             </div>
-            {% else %}
-            <p class="profile-empty">No expenses logged yet.</p>
-            {% endif %}
         </div>
 
     </div>

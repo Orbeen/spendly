@@ -66,13 +66,10 @@
         <a href="#" class="modal-close" aria-label="Close">&times;</a>
         <h2 class="modal-title">How Spendly works</h2>
         <div class="modal-video">
-            <iframe
-                src="https://www.youtube-nocookie.com/embed/M7lc1UVf-VE"
-                title="How Spendly works"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+            <img
+                src="{{ url_for('static', filename='img/how-it-works.gif') }}"
+                alt="Walkthrough of signing in to Spendly and viewing the profile dashboard with spending breakdown and recent expenses"
+                class="modal-video-gif">
         </div>
         <a href="{{ url_for('register') }}" class="btn-primary modal-cta">Start tracking free</a>
     </div>
