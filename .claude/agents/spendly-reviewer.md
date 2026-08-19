@@ -27,6 +27,7 @@ the file being reviewed, since it may have changed.
   not yet reached. If a step is being implemented, the placeholder string must be fully replaced
   — not left alongside real logic, not partially stubbed.
 - No premature implementation of future steps. Flag any route/logic that jumps ahead of what was
+
   asked for.
 
 **Database access (database/db.py and any callers)**
