@@ -21,6 +21,10 @@
             <div class="nav-links">
                 {% if current_user %}
                     <span class="nav-user">Hi, {{ current_user['name'] }}</span>
+                    <a href="{{ url_for('expenses') }}"
+                       class="nav-link{{ ' is-active' if request.endpoint == 'expenses' else '' }}">Expenses</a>
+                    <a href="{{ url_for('analytics') }}"
+                       class="nav-link{{ ' is-active' if request.endpoint == 'analytics' else '' }}">Analytics</a>
                     <a href="{{ url_for('logout') }}" class="nav-cta">Logout</a>
                 {% else %}
                     <a href="{{ url_for('login') }}">Sign in</a>
@@ -49,6 +53,8 @@
                     <span class="footer-col-title">Product</span>
                     <a href="{{ url_for('landing') }}">Home</a>
                     {% if current_user %}
+                        <a href="{{ url_for('expenses') }}">Expenses</a>
+                        <a href="{{ url_for('analytics') }}">Analytics</a>
                         <a href="{{ url_for('profile') }}">My account</a>
                         <a href="{{ url_for('logout') }}">Logout</a>
                     {% else %}

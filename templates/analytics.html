@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+    <div class="profile-dash-inner">
+
+        <div class="profile-dash-top">
+            <div>
+                <div class="profile-badge">Analytics</div>
+                <h1 class="profile-dash-title">Spending insights</h1>
+                <p class="profile-dash-meta">Charts and trends to make sense of where your money goes.</p>
+            </div>
+        </div>
+
+        <div class="profile-dash-card analytics-soon">
+            <div class="profile-dash-card-title">Coming soon</div>
+            <p class="profile-empty">
+                We're building richer analytics — monthly trends, category deep-dives,
+                and budget tracking. Check back shortly.
+            </p>
+            <a href="{{ url_for('profile') }}" class="btn-primary">Back to dashboard</a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

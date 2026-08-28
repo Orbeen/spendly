@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Your expenses · Spendly{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+    <div class="profile-dash-inner">
+
+        <div class="profile-dash-top">
+            <div>
+                <div class="profile-badge">Expenses</div>
+                <h1 class="profile-dash-title">Your expenses</h1>
+                <p class="profile-dash-meta">{{ expenses|length }} transaction{{ 's' if expenses|length != 1 else '' }}</p>
+            </div>
+        </div>
+
+        <div class="profile-dash-card">
+            {% if expenses %}
+            <div class="expense-list">
+                {% for expense in expenses %}
+                <div class="expense-row">
+                    <span class="expense-row-date">{{ expense['date'] }}</span>
+                    <span class="expense-row-category">{{ expense['category'] }}</span>
+                    <span class="expense-row-desc">{{ expense['description'] or '—' }}</span>
+                    <span class="expense-row-amount">₹{{ "%.2f"|format(expense['amount']) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="profile-empty">No expenses logged yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

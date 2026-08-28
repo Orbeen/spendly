@@ -111,6 +111,8 @@ a { color: inherit; text-decoration: none; }
 .nav-links a { color: var(--ink-muted); transition: color 0.2s; }
 .nav-links a:hover { color: var(--ink); }
 
+.nav-link.is-active { color: var(--ink); font-weight: 600; }
+
 .nav-user { color: var(--ink-muted); }
 
 .nav-cta {
@@ -782,6 +784,9 @@ a { color: inherit; text-decoration: none; }
     border: 1px dashed var(--border);
     border-radius: var(--radius-md);
 }
+
+.analytics-soon .profile-empty { margin-bottom: 1.5rem; }
+.analytics-soon .btn-primary { display: block; width: fit-content; margin: 0 auto; }
 
 /* ------------------------------------------------------------------ */
 /* Footer                                                              */
