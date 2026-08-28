@@ -2,36 +2,40 @@
 
 {% block title %}Your expenses · Spendly{% endblock %}
 
+{% block head %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/expenses.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<section class="profile-page">
-    <div class="profile-dash-inner">
+<section class="expenses-screen">
+    <span class="ex-ellipse ex-ellipse-1"></span>
+    <span class="ex-ellipse ex-ellipse-2"></span>
 
-        <div class="profile-dash-top">
-            <div>
-                <div class="profile-badge">Expenses</div>
-                <h1 class="profile-dash-title">Your expenses</h1>
-                <p class="profile-dash-meta">{{ expenses|length }} transaction{{ 's' if expenses|length != 1 else '' }}</p>
-            </div>
+    <div class="ex-inner">
+        <div class="ex-head">
+            <span class="ex-badge">Expenses</span>
+            <h1 class="ex-title">Your expenses</h1>
+            <p class="ex-meta">{{ expenses|length }} transaction{{ 's' if expenses|length != 1 else '' }}</p>
         </div>
 
-        <div class="profile-dash-card">
+        <div class="ex-card">
             {% if expenses %}
-            <div class="expense-list">
+            <div class="ex-list">
                 {% for expense in expenses %}
-                <div class="expense-row">
-                    <span class="expense-row-date">{{ expense['date'] }}</span>
-                    <span class="expense-row-category">{{ expense['category'] }}</span>
-                    <span class="expense-row-desc">{{ expense['description'] or '—' }}</span>
-                    <span class="expense-row-amount">₹{{ "%.2f"|format(expense['amount']) }}</span>
+                <div class="ex-row">
+                    <span class="ex-row-date">{{ expense['date'] }}</span>
+                    <span class="ex-row-category">{{ expense['category'] }}</span>
+                    <span class="ex-row-desc">{{ expense['description'] or '—' }}</span>
+                    <span class="ex-row-amount">₹{{ "%.2f"|format(expense['amount']) }}</span>
                 </div>
                 {% endfor %}
             </div>
             {% else %}
-            <p class="profile-empty">No expenses logged yet.</p>
+            <p class="ex-empty">No expenses logged yet.</p>
             {% endif %}
         </div>
-
     </div>
 </section>
 

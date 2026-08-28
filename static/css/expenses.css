@@ -1,0 +1,203 @@
+/* ================================================================== */
+/* Expenses screen                                                     */
+/*                                                                    */
+/* Restyled to share the "Launching Soon" analytics look: purple       */
+/* gradient, decorative circles, frosted-glass card, Poppins, cyan     */
+/* accents. The transaction list itself is unchanged in behaviour.     */
+/* Scoped under .expenses-screen and kept in this dedicated file, the  */
+/* same way analytics.css sits apart from the global style.css.        */
+/* ================================================================== */
+
+.expenses-screen {
+    --ex-cyan: #31b8d6;
+    --ex-font: 'Poppins', var(--font-body, system-ui), sans-serif;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: calc(100vh - 60px);
+    padding: 4rem 1.5rem 5rem;
+    background-image: linear-gradient(
+        59.81deg,
+        rgb(46, 32, 142) 16.57%,
+        rgb(155, 86, 166) 100.9%
+    );
+    font-family: var(--ex-font);
+    color: #ffffff;
+}
+
+.expenses-screen * {
+    box-sizing: border-box;
+}
+
+/* ---- Decorative blurred circles ---- */
+
+.ex-ellipse {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    display: block;
+    pointer-events: none;
+}
+
+.ex-ellipse-1 {
+    width: 754px;
+    height: 769px;
+    top: -22vh;
+    left: -14vw;
+    background: linear-gradient(150deg, #7b3fb0 0%, #9b56a6 70%);
+    opacity: 0.5;
+}
+
+.ex-ellipse-2 {
+    width: 761px;
+    height: 776px;
+    bottom: -26vh;
+    right: -10vw;
+    background: linear-gradient(150deg, #c342a0 0%, #9b56a6 70%);
+    opacity: 0.5;
+}
+
+/* ---- Layout ---- */
+
+.ex-inner {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* ---- Header ---- */
+
+.ex-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.ex-badge {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.15);
+    border: 0.5px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+}
+
+.ex-title {
+    font-weight: 500;
+    font-size: clamp(1.9rem, 4.5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.ex-meta {
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- Frosted card ---- */
+
+.ex-card {
+    position: relative;
+    border-radius: 16px;
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.06) 100%
+    );
+    backdrop-filter: blur(32.5px);
+    -webkit-backdrop-filter: blur(32.5px);
+    padding: 0.5rem;
+}
+
+/* ---- Transaction list ---- */
+
+.ex-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.ex-row {
+    display: grid;
+    grid-template-columns: 110px 140px 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ex-row:last-child {
+    border-bottom: none;
+}
+
+.ex-row-date {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.ex-row-category {
+    justify-self: start;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: var(--ex-cyan);
+    padding: 0.22rem 0.7rem;
+    border-radius: 999px;
+}
+
+.ex-row-desc {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ex-row-amount {
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---- Empty state ---- */
+
+.ex-empty {
+    padding: 2.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+    .ex-row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "category amount"
+            "desc desc"
+            "date date";
+        row-gap: 0.4rem;
+    }
+
+    .ex-row-date { grid-area: date; }
+    .ex-row-category { grid-area: category; }
+    .ex-row-desc { grid-area: desc; }
+    .ex-row-amount { grid-area: amount; }
+}
