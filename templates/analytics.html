@@ -2,28 +2,69 @@
 
 {% block title %}Analytics — Spendly{% endblock %}
 
+{% block head %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<section class="profile-page">
-    <div class="profile-dash-inner">
+{#
+  "Launching Soon" coming-soon screen, reproduced from the Figma design.
+  The countdown digits are static placeholder values from the design
+  (20 days / 22 hours / 56 minutes) — this screen is not yet wired up.
+#}
+<section class="coming-soon">
+    <span class="cs-ellipse cs-ellipse-1"></span>
+    <span class="cs-ellipse cs-ellipse-2"></span>
 
-        <div class="profile-dash-top">
-            <div>
-                <div class="profile-badge">Analytics</div>
-                <h1 class="profile-dash-title">Spending insights</h1>
-                <p class="profile-dash-meta">Charts and trends to make sense of where your money goes.</p>
+    <a href="{{ url_for('profile') }}" class="cs-menu" aria-label="Back to dashboard">
+        <img src="{{ url_for('static', filename='img/analytics/menu.png') }}" alt="">
+    </a>
+
+    <div class="cs-inner">
+        <h1 class="cs-title">Launching Soon</h1>
+
+        {% set countdown = [
+            {'label': 'DAYS',    'digits': ['2', '0']},
+            {'label': 'HOURS',   'digits': ['2', '2']},
+            {'label': 'MINUTES', 'digits': ['5', '6']}
+        ] %}
+        <div class="cs-countdown">
+            {% for unit in countdown %}
+            <div class="cs-unit">
+                <div class="cs-digits">
+                    {% for digit in unit.digits %}
+                    <span class="cs-digit">{{ digit }}</span>
+                    {% endfor %}
+                </div>
+                <span class="cs-unit-label">{{ unit.label }}</span>
             </div>
+            {% endfor %}
         </div>
 
-        <div class="profile-dash-card analytics-soon">
-            <div class="profile-dash-card-title">Coming soon</div>
-            <p class="profile-empty">
-                We're building richer analytics — monthly trends, category deep-dives,
-                and budget tracking. Check back shortly.
-            </p>
-            <a href="{{ url_for('profile') }}" class="btn-primary">Back to dashboard</a>
-        </div>
+        <p class="cs-subtitle">We&rsquo;ll let you know when we are Launching</p>
 
+        {# Static mock — the notify form is not wired to a handler yet. #}
+        <form class="cs-notify" onsubmit="return false;">
+            <input class="cs-notify-input" type="email" name="email" placeholder="Email Address" aria-label="Email Address">
+            <button class="cs-notify-btn" type="submit">Notify Me</button>
+        </form>
+    </div>
+
+    {% set socials = [
+        {'name': 'Facebook',  'file': 'social-facebook.png'},
+        {'name': 'Twitter',   'file': 'social-twitter.png'},
+        {'name': 'LinkedIn',  'file': 'social-linkedin.png'},
+        {'name': 'Instagram', 'file': 'social-instagram.png'},
+        {'name': 'Dribbble',  'file': 'social-dribbble.png'}
+    ] %}
+    <div class="cs-socials">
+        {% for social in socials %}
+        <a href="#" class="cs-social" aria-label="{{ social.name }}">
+            <img src="{{ url_for('static', filename='img/analytics/' ~ social.file) }}" alt="{{ social.name }}">
+        </a>
+        {% endfor %}
     </div>
 </section>
 

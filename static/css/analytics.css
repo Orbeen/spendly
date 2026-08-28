@@ -1,0 +1,269 @@
+/* ================================================================== */
+/* "Launching Soon" coming-soon screen                                 */
+/*                                                                    */
+/* Faithful reproduction of the Figma "Coming Soon Landing Page"       */
+/* design. It intentionally uses its own palette / type scale          */
+/* (Poppins, purple gradient, cyan button) rather than Spendly's       */
+/* global design system, so every rule is scoped under .coming-soon    */
+/* and kept in this dedicated file instead of style.css.               */
+/* ================================================================== */
+
+.coming-soon {
+    --cs-cyan: #31b8d6;
+    --cs-font: 'Poppins', var(--font-body, system-ui), sans-serif;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+    background-image: linear-gradient(
+        59.81deg,
+        rgb(46, 32, 142) 16.57%,
+        rgb(155, 86, 166) 100.9%
+    );
+    font-family: var(--cs-font);
+    color: #ffffff;
+}
+
+.coming-soon * {
+    box-sizing: border-box;
+}
+
+/* ---- Decorative blurred circles ---- */
+
+.cs-ellipse {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    display: block;
+    pointer-events: none;
+}
+
+.cs-ellipse-1 {
+    width: 754px;
+    height: 769px;
+    top: -18vh;
+    left: -14vw;
+    background: linear-gradient(150deg, #7b3fb0 0%, #9b56a6 70%);
+    opacity: 0.55;
+}
+
+.cs-ellipse-2 {
+    width: 761px;
+    height: 776px;
+    bottom: -22vh;
+    right: -8vw;
+    background: linear-gradient(150deg, #c342a0 0%, #9b56a6 70%);
+    opacity: 0.55;
+}
+
+/* ---- Top-right menu icon ---- */
+
+.cs-menu {
+    position: absolute;
+    top: 2rem;
+    right: 2.5rem;
+    width: 34px;
+    height: 34px;
+    display: block;
+    z-index: 2;
+}
+
+.cs-menu img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    /* Source PNGs are black glyphs; the design shows them white. */
+    filter: brightness(0) invert(1);
+}
+
+/* ---- Centre column ---- */
+
+.cs-inner {
+    width: 100%;
+    max-width: 820px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2.5rem;
+}
+
+.cs-title {
+    font-weight: 400;
+    font-size: clamp(2.75rem, 7vw, 6rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+/* ---- Countdown ---- */
+
+.cs-countdown {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1.25rem, 4vw, 3rem);
+}
+
+.cs-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cs-digits {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.cs-digit {
+    position: relative;
+    width: clamp(60px, 9vw, 100px);
+    height: clamp(96px, 14.5vw, 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(3.25rem, 8vw, 6rem);
+    font-weight: 500;
+    line-height: 1;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+/* The frosted card sits behind the digit at 50% opacity, matching the
+   Figma where the rectangle and its border are half-transparent while
+   the numeral on top is full white. */
+.cs-digit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 5px;
+    border: 0.5px solid #ffffff;
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    opacity: 0.5;
+    backdrop-filter: blur(32.5px);
+    -webkit-backdrop-filter: blur(32.5px);
+    z-index: -1;
+}
+
+.cs-unit-label {
+    font-weight: 400;
+    font-size: clamp(1.25rem, 3vw, 3rem);
+    letter-spacing: 0.02em;
+}
+
+/* ---- Subtitle ---- */
+
+.cs-subtitle {
+    font-weight: 400;
+    font-size: clamp(1.05rem, 2.4vw, 2rem);
+}
+
+/* ---- Notify form ---- */
+
+.cs-notify {
+    display: flex;
+    width: 100%;
+    max-width: 783px;
+    height: 81px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cs-notify-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 1.75rem;
+    font-family: var(--cs-font);
+    font-size: clamp(1rem, 1.8vw, 1.75rem);
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.cs-notify-input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.cs-notify-btn {
+    flex: 0 0 auto;
+    width: clamp(140px, 20vw, 238px);
+    border: none;
+    cursor: pointer;
+    background: var(--cs-cyan);
+    color: #ffffff;
+    font-family: var(--cs-font);
+    font-weight: 400;
+    font-size: clamp(1.05rem, 1.9vw, 2rem);
+    border-radius: 0 10px 10px 0;
+    transition: filter 0.2s;
+}
+
+.cs-notify-btn:hover {
+    filter: brightness(1.08);
+}
+
+/* ---- Social icon strip ---- */
+
+.cs-socials {
+    position: absolute;
+    top: 50%;
+    right: 1.75rem;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 2;
+}
+
+.cs-social {
+    width: 30px;
+    height: 30px;
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.cs-social:hover {
+    opacity: 1;
+}
+
+.cs-social img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    /* Source PNGs are black glyphs; the design shows them white. */
+    filter: brightness(0) invert(1);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 700px) {
+    .cs-notify {
+        height: 64px;
+    }
+
+    .cs-socials {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 3rem;
+        gap: 20px;
+    }
+
+    .cs-menu {
+        right: 1.25rem;
+    }
+}
